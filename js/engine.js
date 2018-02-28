@@ -49,20 +49,17 @@ var Engine = (function(global) {
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
-         */ 
+         */
         lastTime = now;
         time++;
-        function blink() {
-            for (var i = time; i < time + 120; i++) {
-                if (time % 7 == 0) {
-                    player.sprite = 'images/char-boy2.png';
-                } else if (time % 13 == 0) {
-                    player.sprite = 'images/char-boy.png';
-                };
-            };
+        console.log(time);
+
+
+        if (time <= 60 && player.count != 0) {
+            blink();
         };
 
-        /*console.log(time);*/
+
 
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
@@ -70,6 +67,13 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     }
 
+    function blink() {
+        if (time % 5 == 0) {
+            player.normal();
+        } else {
+            player.red();
+        };
+    };
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
@@ -186,7 +190,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/char-boy2.png'
+        'images/char-boy-2.png'
     ]);
     Resources.onReady(init);
 

@@ -16,7 +16,6 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 };
 
-//Enemy update controls position and speed.
 Enemy.prototype.update = function(dt) {
     this.step = 50;
     this.x += this.step * player.level * dt;
@@ -33,23 +32,21 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Enemy prototype will check if it collides with the player.
 Enemy.prototype.checkCollision = function(){
     if ((player.x - player.w/2) - this.x < 0 &&
         (this.x - this.w/2) - player.x < 0 &&
         player.y - (this.y + this.w/2) < 0 &&
         (this.y - this.w/2) - player.y < 0) {
-            for (var i = 0; i < 3; i++) {
-                player.blinkOff();
-                player.blinkOn();
-            };
+    		player.red();
             player.count++;
             if (player.count == 3) {
                 player.level = 1;
                 resetEnemies();
                 player.count = 0;
+                player.normal();
             }
             player.move(202, 395);
+            time = 0;
     }
 };
 
@@ -83,17 +80,18 @@ player.prototype.move = function(x, y) {
     player.render();
 };
 
-player.prototype.blinkOff = function() {
-    for (var i = time; i < time + 30; i++) {
-        player.sprite = 'images/char-boy2.png';
-    };
+player.prototype.red = function() {
+	if (this.sprite = 'images/char-boy.png') {
+		this.sprite = 'images/char-boy-2.png';
+	}
 };
 
-player.prototype.blinkOn = function() {
-    for (var i = time; i < time + 30; i++) {
-        player.sprite = 'images/char-boy.png';
-    };
+player.prototype.normal = function() {
+	if (this.sprite = 'images/char-boy-2.png') {
+		this.sprite = 'images/char-boy.png';
+	}
 };
+
 
 player.prototype.handleInput = function(key){
     // LEFT
